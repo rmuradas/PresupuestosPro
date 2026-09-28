@@ -1,0 +1,270 @@
+:root {
+  /* Paleta de colores */
+  --color-primario: #1f2933;
+  --color-primario-hover: #0f172a;
+  --color-texto: #1a1a1a;
+  --color-texto-secundario: #4b5563;
+  --color-fondo: #f7f7f8;
+  --color-superficie: #ffffff;
+  --color-borde: #d1d5db;
+  --color-error: #b91c1c;
+
+  /* Estados del presupuesto (FR-016), contraste mínimo WCAG AA 4.5:1 con texto blanco (FR-030) */
+  --color-estado-borrador: #4b5563;
+  --color-estado-enviado: #1d4ed8;
+  --color-estado-aceptado: #15803d;
+  --color-estado-rechazado: #b91c1c;
+  --color-estado-caducado: #92400e;
+
+  /* Tipografía */
+  --fuente-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fuente-tamano-base: 1rem;
+  --fuente-tamano-titulo-1: 1.5rem;
+  --fuente-tamano-titulo-2: 1.15rem;
+  --fuente-peso-normal: 400;
+  --fuente-peso-negrita: 700;
+
+  /* Espaciado */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.5rem;
+  --espacio-6: 2rem;
+  --radio-borde: 6px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-base);
+  font-size: var(--fuente-tamano-base);
+  font-weight: var(--fuente-peso-normal);
+  color: var(--color-texto);
+  background: var(--color-fondo);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--fuente-peso-negrita);
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: var(--color-primario);
+  color: #fff;
+  padding: var(--espacio-3) var(--espacio-4);
+}
+
+.app-title {
+  margin: 0 0 var(--espacio-2) 0;
+  font-size: var(--fuente-tamano-titulo-1);
+}
+
+/* Navegación común (FR-007, FR-025) */
+.nav-comun {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+}
+
+.nav-comun__enlace {
+  color: #cbd2d9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: var(--espacio-1) var(--espacio-2);
+  border-radius: var(--radio-borde);
+}
+
+/* Sección activa (FR-023): Vue Router marca el enlace exacto */
+.nav-comun__enlace.router-link-exact-active {
+  color: #fff;
+  font-weight: var(--fuente-peso-negrita);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.aviso-conexion {
+  margin: 0;
+  padding: var(--espacio-3) var(--espacio-4);
+  background: var(--color-error);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.aviso-conexion button {
+  background: #fff;
+  color: var(--color-error);
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--espacio-4);
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: var(--fuente-tamano-titulo-1);
+}
+
+h3 {
+  font-size: var(--fuente-tamano-titulo-2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  max-width: 480px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  padding: var(--espacio-2);
+  font-size: 1rem;
+  font-family: var(--fuente-base);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+button {
+  padding: var(--espacio-2) var(--espacio-4);
+  font-size: 1rem;
+  font-family: var(--fuente-base);
+  border: none;
+  border-radius: var(--radio-borde);
+  background: var(--color-primario);
+  color: #fff;
+  cursor: pointer;
+  width: fit-content;
+}
+
+button:hover {
+  background: var(--color-primario-hover);
+}
+
+button.secundario {
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+}
+
+/* Accesibilidad por teclado (FR-031): foco siempre visible */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primario);
+  outline-offset: 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--espacio-3) 0;
+  /* Legibilidad en anchos estrechos (FR-029): la tabla se desplaza en horizontal en vez de cortar columnas */
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+th,
+td {
+  text-align: left;
+  padding: var(--espacio-2);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.aviso {
+  color: var(--color-error);
+  font-size: 0.9rem;
+}
+
+.resumen-importes {
+  margin-top: var(--espacio-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  max-width: 320px;
+}
+
+.resumen-importes .total {
+  font-weight: var(--fuente-peso-negrita);
+  font-size: 1.1rem;
+  border-top: 1px solid var(--color-borde);
+  padding-top: var(--espacio-2);
+}
+
+/* Página de Inicio */
+.inicio-accesos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-3);
+  margin: var(--espacio-4) 0;
+}
+
+.inicio-accesos__item {
+  display: inline-block;
+  padding: var(--espacio-3) var(--espacio-4);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  color: var(--color-texto);
+  text-decoration: none;
+  font-weight: var(--fuente-peso-negrita);
+}
+
+.inicio-accesos__item:hover {
+  border-color: var(--color-primario);
+}
+
+.resumen-actividad {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+}
+
+.selector-estado {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--espacio-1);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 640px) {
+  .app-header {
+    padding: var(--espacio-4) var(--espacio-6);
+  }
+
+  .app-main {
+    padding: var(--espacio-6);
+  }
+}
