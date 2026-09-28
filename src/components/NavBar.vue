@@ -3,6 +3,9 @@
 
 <template>
   <nav class="nav-comun" aria-label="Navegación principal">
+    <router-link to="/" class="nav-comun__logo" aria-label="Ir a Inicio">
+      <img src="/img/logo-rm.svg" alt="" />
+    </router-link>
     <router-link to="/" class="nav-comun__enlace">Inicio</router-link>
     <router-link to="/presupuestos" class="nav-comun__enlace">Presupuestos</router-link>
     <router-link to="/clientes" class="nav-comun__enlace">Clientes</router-link>

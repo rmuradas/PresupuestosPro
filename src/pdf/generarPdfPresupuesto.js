@@ -14,6 +14,15 @@ function colorVariableCss(nombre) {
   return hexARgb(valor)
 }
 
+function cargarImagenLogoMarca() {
+  return new Promise((resolve, reject) => {
+    const imagen = new Image()
+    imagen.onload = () => resolve(imagen)
+    imagen.onerror = reject
+    imagen.src = '/img/logo-rm.png'
+  })
+}
+
 export async function generarPdfPresupuesto(presupuesto) {
   const perfil = await getPerfil()
   const [rPrimario, gPrimario, bPrimario] = colorVariableCss('--color-primario')
@@ -90,6 +99,15 @@ export async function generarPdfPresupuesto(presupuesto) {
   doc.setFontSize(12)
   doc.text(`Total: ${formatearEuros(importes.total)}`, 15, yDesglose)
   doc.setTextColor(0, 0, 0)
+
+  try {
+    const logoMarca = await cargarImagenLogoMarca()
+    doc.setPage(doc.internal.getNumberOfPages())
+    const yLogoMarca = yDesglose > 260 ? doc.internal.pageSize.getHeight() - 20 : 270
+    doc.addImage(logoMarca, 'PNG', 183, yLogoMarca, 12, 12)
+  } catch {
+    // Si el logotipo de marca no llega a cargar, se omite sin romper el PDF.
+  }
 
   doc.save(`presupuesto-${presupuesto.numero}.pdf`)
 }

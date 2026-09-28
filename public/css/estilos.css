@@ -1,17 +1,19 @@
 :root {
-  /* Paleta de colores */
-  --color-primario: #1f2933;
-  --color-primario-hover: #0f172a;
-  --color-texto: #1a1a1a;
-  --color-texto-secundario: #4b5563;
-  --color-fondo: #f7f7f8;
+  /* Paleta de colores, derivada del logotipo de marca (spec 003) */
+  --color-primario: #0b3128;
+  --color-primario-hover: #082720;
+  --color-acento: #2faf7a;
+  --color-acento-secundario: #0e7490;
+  --color-texto: #16211d;
+  --color-texto-secundario: #4b5f58;
+  --color-fondo: #f4faf7;
   --color-superficie: #ffffff;
-  --color-borde: #d1d5db;
+  --color-borde: #cfe3da;
   --color-error: #b91c1c;
 
   /* Estados del presupuesto (FR-016), contraste mínimo WCAG AA 4.5:1 con texto blanco (FR-030) */
-  --color-estado-borrador: #4b5563;
-  --color-estado-enviado: #1d4ed8;
+  --color-estado-borrador: #243330;
+  --color-estado-enviado: #0e7490;
   --color-estado-aceptado: #15803d;
   --color-estado-rechazado: #b91c1c;
   --color-estado-caducado: #92400e;
@@ -32,6 +34,12 @@
   --espacio-5: 1.5rem;
   --espacio-6: 2rem;
   --radio-borde: 6px;
+
+  /* Logotipo de marca */
+  --logo-grande-tamano: clamp(96px, 30vw, 220px);
+  --logo-pequeno-tamano: 32px;
+  --logo-giro-duracion-grande: 6s;
+  --logo-giro-duracion-pequeno: 0.6s;
 }
 
 *,
@@ -80,7 +88,7 @@ h3 {
 }
 
 .nav-comun__enlace {
-  color: #cbd2d9;
+  color: var(--color-borde);
   text-decoration: none;
   font-size: 0.95rem;
   padding: var(--espacio-1) var(--espacio-2);
@@ -89,9 +97,9 @@ h3 {
 
 /* Sección activa (FR-023): Vue Router marca el enlace exacto */
 .nav-comun__enlace.router-link-exact-active {
-  color: #fff;
+  color: var(--color-primario);
   font-weight: var(--fuente-peso-negrita);
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-acento);
 }
 
 .aviso-conexion {
@@ -218,6 +226,48 @@ td {
   font-size: 1.1rem;
   border-top: 1px solid var(--color-borde);
   padding-top: var(--espacio-2);
+}
+
+/* Logotipo de marca (identidad visual) */
+@keyframes girar-logo {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-grande {
+  display: block;
+  width: var(--logo-grande-tamano);
+  height: auto;
+  margin: 0 auto var(--espacio-4) auto;
+  animation: girar-logo var(--logo-giro-duracion-grande) linear infinite;
+}
+
+.nav-comun__logo {
+  display: inline-flex;
+  width: var(--logo-pequeno-tamano);
+  height: auto;
+  transition: transform var(--logo-giro-duracion-pequeno) linear;
+}
+
+.nav-comun__logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-comun__logo:hover,
+.nav-comun__logo:focus-visible {
+  transform: rotate(360deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-grande {
+    animation: none;
+  }
+
+  .nav-comun__logo {
+    transition: none;
+  }
 }
 
 /* Página de Inicio */

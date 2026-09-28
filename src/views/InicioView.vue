@@ -25,6 +25,7 @@ onMounted(async () => {
 
 <template>
   <section>
+    <img src="/img/logo-rm.svg" alt="" class="logo-grande" />
     <h2>Inicio</h2>
 
     <nav class="inicio-accesos">
