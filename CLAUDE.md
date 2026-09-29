@@ -29,6 +29,7 @@ npm run test:unit  # Vitest
 - Criterios de éxito verificables por una persona no técnica, usando la app.
 - Sin secretos ni claves en el código fuente.
 
+- cuando te pida cerrar la feature, ejecuta: verificar working tree limpio y comitear pendientes, correr tests(parar si fallan), checkout master, merge –no-ff, de la rama de la feature con mensaje “Merge feature NNN:<nombre>, borrar la rama local, y mostrar git log –online –graph -10.
 ## Spec-kit
 - Al ejecutar `/speckit.plan`, SIEMPRE incluye en `plan.md`, como último paso de la fase final, un paso de mantenimiento: “Actualizar `CLAUDE.md` con las decisiones de diseño y convenciones nuevas de esta feature, una línea por decisión, con referencia a la spec (p. ej. ‘[003] ...’). No incluyas entradas por incluir, asegúrate siempre de que es información transversal y relevante para el proyecto que pueden aprovechar futuras features.”
 
