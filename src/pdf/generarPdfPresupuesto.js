@@ -23,7 +23,7 @@ function cargarImagenLogoMarca() {
   })
 }
 
-export async function generarPdfPresupuesto(presupuesto) {
+export async function construirDocumentoPdfPresupuesto(presupuesto) {
   const perfil = await getPerfil()
   const [rPrimario, gPrimario, bPrimario] = colorVariableCss('--color-primario')
   const doc = new jsPDF()
@@ -109,5 +109,10 @@ export async function generarPdfPresupuesto(presupuesto) {
     // Si el logotipo de marca no llega a cargar, se omite sin romper el PDF.
   }
 
+  return doc
+}
+
+export async function generarPdfPresupuesto(presupuesto) {
+  const doc = await construirDocumentoPdfPresupuesto(presupuesto)
   doc.save(`presupuesto-${presupuesto.numero}.pdf`)
 }

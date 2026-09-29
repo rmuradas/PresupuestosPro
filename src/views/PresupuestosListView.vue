@@ -5,10 +5,13 @@ import { listarPresupuestos } from '../storage/presupuestos.js'
 import { calcularImportes } from '../calculo/importes.js'
 import { formatearEuros, formatearFecha } from '../calculo/formato.js'
 import EstadoBadge from '../components/EstadoBadge.vue'
+import { exportarTodo, progreso } from '../exportacion/exportarTodo.js'
 
 const router = useRouter()
 const presupuestos = ref([])
 const cargando = ref(true)
+const exportando = ref(false)
+const avisoExportacion = ref(null)
 
 onMounted(async () => {
   try {
@@ -25,12 +28,33 @@ function totalDe(presupuesto) {
 function nuevoPresupuesto() {
   router.push({ name: 'presupuesto-detalle', params: { id: 'nuevo' } })
 }
+
+async function exportarTodoZip() {
+  avisoExportacion.value = null
+  if (presupuestos.value.length === 0) {
+    avisoExportacion.value = 'No hay presupuestos que exportar.'
+    return
+  }
+  exportando.value = true
+  try {
+    const resultado = await exportarTodo()
+    if (resultado.fallidos.length > 0) {
+      const numeros = resultado.fallidos.map((f) => f.numero).join(', ')
+      avisoExportacion.value = `Se descargó el .zip, pero no se pudo generar el PDF de: ${numeros}.`
+    }
+  } finally {
+    exportando.value = false
+  }
+}
 </script>
 
 <template>
   <section>
     <h2>Presupuestos</h2>
     <button type="button" @click="nuevoPresupuesto">Nuevo presupuesto</button>
+    <button type="button" :disabled="exportando" @click="exportarTodoZip">Exportar todo (.zip)</button>
+    <p v-if="progreso">Generando {{ progreso.actual }} de {{ progreso.total }}…</p>
+    <p v-if="avisoExportacion">{{ avisoExportacion }}</p>
     <p v-if="cargando">Cargando…</p>
     <template v-else>
       <table v-if="presupuestos.length">

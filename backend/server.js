@@ -8,6 +8,7 @@ import rutasServicios from './rutas/servicios.js'
 import rutasClientes from './rutas/clientes.js'
 import rutasPresupuestos, { resumenActividadRouter } from './rutas/presupuestos.js'
 import rutasMigracion from './rutas/migracion.js'
+import rutasExportacion from './rutas/exportacion.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -20,6 +21,7 @@ app.use('/api/clientes', rutasClientes)
 app.use('/api/presupuestos', rutasPresupuestos)
 app.use('/api/resumen-actividad', resumenActividadRouter)
 app.use('/api/migracion', rutasMigracion)
+app.use('/api/exportacion', rutasExportacion)
 
 app.use(express.static(join(__dirname, '..', 'dist')))
 

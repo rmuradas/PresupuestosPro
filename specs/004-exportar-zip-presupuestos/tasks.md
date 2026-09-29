@@ -29,7 +29,7 @@ Proyecto único ya existente: frontend en `src/`, backend en `backend/`, tests e
 
 **Purpose**: Añadir la única dependencia nueva que necesita la feature
 
-- [ ] T001 Añadir la dependencia cliente **JSZip** al proyecto (`npm install jszip`), quedando registrada en `package.json` bajo `dependencies` (research.md §1; plan.md § Primary Dependencies)
+- [X] T001 Añadir la dependencia cliente **JSZip** al proyecto (`npm install jszip`), quedando registrada en `package.json` bajo `dependencies` (research.md §1; plan.md § Primary Dependencies)
 
 ---
 
@@ -101,7 +101,7 @@ Proyecto único ya existente: frontend en `src/`, backend en `backend/`, tests e
 
 **Purpose**: Validación final de extremo a extremo
 
-- [ ] T016 Ejecutar manualmente los 5 escenarios de `quickstart.md` (copia completa, fallo puntual de un presupuesto, sin presupuestos, cliente con caracteres especiales, volumen alto) y confirmar que cada uno se comporta como se describe
+- [X] T016 Ejecutar manualmente los 5 escenarios de `quickstart.md` (copia completa, fallo puntual de un presupuesto, sin presupuestos, cliente con caracteres especiales, volumen alto) y confirmar que cada uno se comporta como se describe
 
 ---
 
