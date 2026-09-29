@@ -29,5 +29,17 @@ npm run test:unit  # Vitest
 - Criterios de éxito verificables por una persona no técnica, usando la app.
 - Sin secretos ni claves en el código fuente.
 
+## Spec-kit
+- Al ejecutar `/speckit.plan`, SIEMPRE incluye en `plan.md`, como último paso de la fase final, un paso de mantenimiento: “Actualizar `CLAUDE.md` con las decisiones de diseño y convenciones nuevas de esta feature, una línea por decisión, con referencia a la spec (p. ej. ‘[003] ...’). No incluyas entradas por incluir, asegúrate siempre de que es información transversal y relevante para el proyecto que pueden aprovechar futuras features.”
+
+## Decisiones de diseño por feature
+
+Registro transversal, una línea por decisión reutilizable en features futuras (los detalles propios de cada feature viven en su spec/plan, no aquí).
+
+- [004] Exportaciones/agregaciones masivas de datos ya existentes que necesiten detalle anidado (p. ej. líneas de presupuesto): se resuelven con un único endpoint de agregación de solo lectura en el backend, no con N peticiones individuales desde el frontend.
+- [004] Generación de `.zip` en el navegador: usar JSZip (ya incorporada como dependencia) en vez de mover el ensamblado al backend o añadir otra librería.
+- [004] Nombres de archivo descargables generados por la app: sanear solo los caracteres inválidos de sistema de archivos (`/ \ : * ? " < > |`) sustituyéndolos por `-`; el identificador único del registro (p. ej. número de presupuesto) nunca se sanea ni se omite, para evitar colisiones de nombre.
+- [004] Trabajo síncrono pesado en el navegador sobre muchos elementos (p. ej. generar muchos PDF seguidos): ceder el hilo principal entre iteraciones y mostrar progreso visible, en vez de introducir Web Workers, mientras la escala del producto sea de un único usuario.
+
 ---
 Las reglas de producto viven en .specify/memory/constitution.md y el estado del producto en specs/README.md.

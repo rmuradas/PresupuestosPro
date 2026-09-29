@@ -8,6 +8,12 @@
 
 **Input**: User description: "Exportar todos mis presupuestos en un .zip — botón que descarga un único .zip con un PDF por cada presupuesto existente (idéntico al que ya genera la app) más un archivo de datos con presupuestos, catálogo de servicios y perfil del freelancer (logo incluido), pensado para restaurar la app en el futuro. Sirve como copia de seguridad ante pérdida de datos del navegador."
 
+## Clarifications
+
+### Session 2026-09-29
+
+- Q: Si al generar el .zip falla la creación del PDF de un presupuesto concreto (por ejemplo, datos corruptos en ese registro), ¿qué debe pasar con el resto de la exportación? → A: Mejor esfuerzo: el .zip se descarga igual con los PDF que sí se generaron, y se avisa qué presupuesto(s) quedaron fuera.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Copia de seguridad completa con un clic (Priority: P1)
@@ -44,6 +50,10 @@ PDF por presupuesto y un archivo de datos legible.
    aplicación, **Then** todos sus presupuestos, catálogo de servicios y perfil
    siguen exactamente igual que antes de exportar (la exportación es de solo
    lectura).
+5. **Given** uno de los presupuestos tiene datos que impiden generar su PDF,
+   **When** el freelancer exporta, **Then** el .zip se descarga igualmente
+   con el resto de PDF generados correctamente, y un aviso indica qué
+   presupuesto(s) no pudieron incluirse.
 
 ---
 
@@ -115,6 +125,11 @@ interfaz muestra que la exportación está en curso hasta que termina.
 - El freelancer cierra o navega fuera de la pantalla mientras se genera el
   .zip: la descarga en curso puede interrumpirse; no se considera un fallo
   del sistema, es un comportamiento estándar de descargas del navegador.
+- Fallo al generar el PDF de un presupuesto concreto durante la exportación
+  (por ejemplo, datos corruptos en ese registro): el resto de la exportación
+  continúa; el .zip se descarga igualmente con los PDF que sí se generaron
+  correctamente, y se informa al freelancer de qué presupuesto(s) quedaron
+  fuera.
 
 ## Requirements *(mandatory)*
 
@@ -128,7 +143,8 @@ interfaz muestra que la exportación está en curso hasta que termina.
   `presupuestospro-copia-AAAA-MM-DD.zip`, usando la fecha del día en que se
   realiza la exportación.
 - **FR-004**: El .zip DEBE contener un archivo PDF por cada presupuesto
-  existente en el momento de la exportación.
+  existente en el momento de la exportación, salvo los casos de fallo
+  puntual descritos en FR-013.
 - **FR-005**: Cada PDF dentro del .zip DEBE ser exactamente el mismo
   documento (mismo contenido, formato e importes) que la aplicación genera
   para ese presupuesto al descargarlo individualmente.
@@ -156,6 +172,11 @@ interfaz muestra que la exportación está en curso hasta que termina.
 - **FR-012**: El sistema DEBE completar la exportación con éxito
   independientemente del número de presupuestos existentes (desde 1 hasta
   como mínimo 200).
+- **FR-013**: Si falla la generación del PDF de un presupuesto concreto
+  durante la exportación, el sistema DEBE continuar generando el resto de
+  PDF y DEBE descargar igualmente el .zip con los que sí se generaron
+  correctamente, informando al freelancer de qué presupuesto(s) no se
+  pudieron incluir.
 
 ### Key Entities
 
